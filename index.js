@@ -4,7 +4,7 @@ require("dotenv").config();
 
 // Server Configurations
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 app.use(express.json());
 
 //Local Variables
@@ -20,9 +20,11 @@ app.listen(PORT, async (err) => {
 app.get("/", (req, res) => {
   res.json({
     status: true,
-    msg: "Hello, world!",
+    msg: "Welcome to hall booking Api Task",
   });
 });
+
+// creating a room with no of seats ,amenities and price
 
 app.post("/createRoom", (req, res) => {
   let roomName = req.body.roomName;
@@ -37,7 +39,7 @@ app.post("/createRoom", (req, res) => {
     numberOfAmenities,
     customer: [],
   });
-
+// updating data in json
   fs.writeFileSync("data.json", JSON.stringify(rooms));
 
   res.json({
@@ -51,6 +53,8 @@ app.post("/createRoom", (req, res) => {
     },
   });
 });
+
+// Booking room with following options
 
 app.post("/bookRoom", (req, res) => {
   let roomId = req.body.roomId;
@@ -108,6 +112,7 @@ app.post("/bookRoom", (req, res) => {
   }
 });
 
+// getting details of all the rooms
 app.get("/getAllRooms", (req, res) => {
   res.json(
     rooms.map((room) => {
@@ -135,6 +140,7 @@ app.get("/getAllRooms", (req, res) => {
   );
 });
 
+// list of all the customers
 app.get("/getAllCustomers", (req, res) => {
   res.json(
     rooms.map((room) => {
